@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <h1>Student Management System</h1>
+      <p class="subtitle">Track student marks, grades, and performance</p>
+    </div>
+    <div class="header-actions">
+      <button class="header-btn" onclick="exportCSV()">&#8681; Export CSV</button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- Stats Row -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Students</div>
+        <div class="stat-value" id="stat-total">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Class Average</div>
+        <div class="stat-value" id="stat-avg">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Top Scorer</div>
+        <div class="stat-value" id="stat-top">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Highest %</div>
+        <div class="stat-value" id="stat-high">—</div>
+      </div>
+    </div>
+
+    <div class="layout">
+
+      <!-- Add Student Form -->
+      <div class="form-card">
+        <h2>Add Student</h2>
+        <div class="form-group">
+          <label>Student Name</label>
+          <input type="text" id="name" placeholder="e.g. Akanksha Kumari" />
+        </div>
+        <div class="subjects-grid">
+          <div class="form-group">
+            <label>Maths <span class="max">/100</span></label>
+            <input type="number" id="maths" placeholder="0" min="0" max="100" />
+          </div>
+          <div class="form-group">
+            <label>Science <span class="max">/100</span></label>
+            <input type="number" id="science" placeholder="0" min="0" max="100" />
+          </div>
+          <div class="form-group">
+            <label>English <span class="max">/100</span></label>
+            <input type="number" id="english" placeholder="0" min="0" max="100" />
+          </div>
+          <div class="form-group">
+            <label>Hindi <span class="max">/100</span></label>
+            <input type="number" id="hindi" placeholder="0" min="0" max="100" />
+          </div>
+          <div class="form-group">
+            <label>Computer <span class="max">/100</span></label>
+            <input type="number" id="computer" placeholder="0" min="0" max="100" />
+          </div>
+        </div>
+        <button id="add-btn" onclick="addStudent()">Add Student</button>
+        <div id="form-msg" class="msg"></div>
+      </div>
+
+      <!-- Table Section -->
+      <div class="table-section">
+        <div class="table-header">
+          <h2>All Students</h2>
+          <input type="text" id="search" placeholder="Search by name..." oninput="searchStudents()" />
+        </div>
+        <div class="table-wrapper">
+          <table id="students-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Maths</th>
+                <th>Science</th>
+                <th>English</th>
+                <th>Hindi</th>
+                <th>Computer</th>
+                <th>Total</th>
+                <th>%</th>
+                <th>Grade</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <tr><td colspan="11" class="empty-state">No students yet. Add one above!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; Akanksha Kumari &nbsp;|&nbsp; Student Management System</p>
+  </footer>
+
+  <!-- ── EDIT MODAL ─────────────────────────────────────────── -->
+  <div id="edit-overlay" class="overlay" style="display:none" onclick="closeEdit(event)">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>Edit Student</h3>
+        <button class="close-btn" onclick="closeEditModal()">&#10005;</button>
+      </div>
+      <input type="hidden" id="edit-id" />
+      <div class="form-group">
+        <label>Student Name</label>
+        <input type="text" id="edit-name" />
+      </div>
+      <div class="subjects-grid">
+        <div class="form-group">
+          <label>Maths <span class="max">/100</span></label>
+          <input type="number" id="edit-maths" min="0" max="100" />
+        </div>
+        <div class="form-group">
+          <label>Science <span class="max">/100</span></label>
+          <input type="number" id="edit-science" min="0" max="100" />
+        </div>
+        <div class="form-group">
+          <label>English <span class="max">/100</span></label>
+          <input type="number" id="edit-english" min="0" max="100" />
+        </div>
+        <div class="form-group">
+          <label>Hindi <span class="max">/100</span></label>
+          <input type="number" id="edit-hindi" min="0" max="100" />
+        </div>
+        <div class="form-group">
+          <label>Computer <span class="max">/100</span></label>
+          <input type="number" id="edit-computer" min="0" max="100" />
+        </div>
+      </div>
+      <div id="edit-msg" class="msg"></div>
+      <div class="modal-footer">
+        <button class="cancel-btn" onclick="closeEditModal()">Cancel</button>
+        <button id="save-btn" onclick="saveEdit()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── REPORT CARD MODAL ──────────────────────────────────── -->
+  <div id="report-overlay" class="overlay" style="display:none" onclick="closeReport(event)">
+    <div class="modal modal-wide">
+      <div class="modal-header">
+        <h3>Report Card</h3>
+        <div style="display:flex;gap:8px">
+          <button class="print-btn" onclick="printReport()">&#128438; Print</button>
+          <button class="close-btn" onclick="closeReportModal()">&#10005;</button>
+        </div>
+      </div>
+      <div id="report-content"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
