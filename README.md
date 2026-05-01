@@ -42,14 +42,18 @@ A full-stack web application built with **Python (Flask)**, **SQLite**, **HTML**
 ```
 student-management-system/
 ├── app.py                  # Flask backend + all REST API routes
-├── students.db             # SQLite database (auto-created on first run)
 ├── requirements.txt        # Python dependencies
+├── .gitignore              # Files excluded from GitHub
+├── README.md               # Project documentation
 ├── templates/
 │   └── index.html          # Frontend HTML page
 ├── static/
 │   ├── style.css           # Styling
 │   └── app.js              # JavaScript — fetch API calls to backend
-└── README.md
+└── screenshot/
+    ├── front.jpeg          # Main dashboard view
+    ├── CSV.jpeg            # show table in excel files
+    └── report.jpeg         # Student report card
 ```
 
 ---
@@ -86,7 +90,7 @@ student-management-system/
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/student-management-system.git
+git clone  https://github.com/Akanksha950/Student-Management-System.git
 cd student-management-system
 ```
 
