@@ -7,9 +7,9 @@ A full-stack web application built with **Python (Flask)**, **SQLite**, **HTML**
 ---
 
 ## Screenshots
-
-![Student Management System](<img width="1600" height="1066" alt="CSV" src="https://github.com/user-attachments/assets/2027058d-2cbe-42e4-9473-5893ce6f722b" />
-)
+ [Dashboard][screenshot/front.jpeg]
+ [Report][screenshot/report.jpeg]
+ [CSV/Excel file][screenshot/CSV.jpeg]
 
 ---
 
