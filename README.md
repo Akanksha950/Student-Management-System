@@ -135,4 +135,4 @@ The SQLite database (`students.db`) is created automatically on first run. No se
 
 **Akanksha Kumari**  
 Junior Software Developer  
-[GitHub](https://github.com/YOUR_USERNAME)
+[GitHub](https://github.com/Akanksha950)
